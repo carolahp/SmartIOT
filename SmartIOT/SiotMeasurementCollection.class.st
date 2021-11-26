@@ -20,7 +20,10 @@ SiotMeasurementCollection class >> example1 [
 		addIntegerField: #power: ;
 		addIntegerField: #voltage: ;
 		upToEnd.
-	rows do: [ :row | row convertTimestamp ]
+	rows do: [ :row | row convertTimestamp ].
+	^ self new
+		measurements: rows;
+		yourself 
 ]
 
 { #category : #accessing }
@@ -34,4 +37,16 @@ SiotMeasurementCollection class >> input [
 SiotMeasurementCollection class >> reader [
 	^ NeoCSVReader on: self input readStream
 
+]
+
+{ #category : #accessing }
+SiotMeasurementCollection >> measurements [
+
+	^ measurements
+]
+
+{ #category : #accessing }
+SiotMeasurementCollection >> measurements: anObject [
+
+	measurements := anObject
 ]
