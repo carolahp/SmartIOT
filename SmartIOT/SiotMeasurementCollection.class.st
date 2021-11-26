@@ -138,3 +138,31 @@ SiotMeasurementCollection >> period: anObject [
 
 	period := anObject
 ]
+
+{ #category : #serialization }
+SiotMeasurementCollection >> serializeToJson [
+
+	| writer |
+	writer := [ :object | 
+	          String streamContents: [ :stream | 
+		          | mapper |
+		          mapper := NeoJSONWriter on: stream.
+					
+		          mapper
+			          for: #ArrayOfMeasurements
+			          customDo: [ :mapping | 
+				          mapping listOfElementSchema: SiotMeasurement ];
+			          for: SiotMeasurement do: [ :mapping | 
+				          (mapping mapInstVar: #timestamp) valueSchema:
+						          DateAndTime.
+				          mapping mapInstVars: #( current power voltage ) ].
+		          mapper for: DateAndTime customDo: [ :mapping | 
+			   		(mapping mapInstVar: #measurements) valueSchema: #ArrayOfMeasurements.       
+						mapping decoder: [ :string | 
+				          DateAndTime fromString: string ].
+			          mapping encoder: [ :dateAndTime | 
+				          dateAndTime printString ] ].
+
+		          mapper nextPut: object ] ].
+	^ writer value: self
+]
