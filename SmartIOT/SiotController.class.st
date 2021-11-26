@@ -18,7 +18,8 @@ SiotController class >> getHost [
 
 { #category : #'as yet unclassified' }
 SiotController class >> getStayById: id [
-	id = 1 ifTrue: [ ^ SiotStay example1 ].
-	id = 2 ifTrue: [ ^ SiotStay example2 ].
-	self error: 'Stay id should be 1 or 2'
+	
+	id asString = '1' ifTrue: [ ^ SiotStay example1 ].
+	id asString = '2' ifTrue: [ ^ SiotStay example2 ].
+	self error: 'Got Stay id ', id asString, ', it should be 1 or 2'
 ]

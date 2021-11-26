@@ -2,9 +2,11 @@ Class {
 	#name : #SiotStay,
 	#superclass : #Object,
 	#instVars : [
-		'guestID',
+		'id',
+		'guest',
 		'from',
-		'to'
+		'to',
+		'numGuests'
 	],
 	#category : #'SmartIOT-Entities'
 }
@@ -12,7 +14,9 @@ Class {
 { #category : #examples }
 SiotStay class >> example1 [
 	^ self new
-		guestID: 1;
+		id: 1;
+		numGuests: 3;
+		guest: SiotGuest example1;
 		from: (DateAndTime
 		      year: 2021
 		      month: 11
@@ -35,7 +39,9 @@ SiotStay class >> example1 [
 { #category : #examples }
 SiotStay class >> example2 [
 	^ self new
-		guestID: 2;
+		id: 2;
+		numGuests: 5;
+		guest: SiotGuest example2;
 		from: (DateAndTime
 		      year: 2021
 		      month: 11
@@ -68,15 +74,59 @@ SiotStay >> from: anObject [
 ]
 
 { #category : #accessing }
-SiotStay >> guestID [
+SiotStay >> guest [
 
-	^ guestID
+	^ guest
 ]
 
 { #category : #accessing }
-SiotStay >> guestID: anObject [
+SiotStay >> guest: anObject [
 
-	guestID := anObject
+	guest := anObject
+]
+
+{ #category : #accessing }
+SiotStay >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+SiotStay >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #accessing }
+SiotStay >> numGuests [
+
+	^ numGuests
+]
+
+{ #category : #accessing }
+SiotStay >> numGuests: anObject [
+
+	numGuests := anObject
+]
+
+{ #category : #serialization }
+SiotStay >> serializeToJson [
+	| writer |
+	writer := [ :object | 
+	          String streamContents: [ :stream | 
+		          | mapper |
+		          mapper := NeoJSONWriter on: stream.
+		          mapper for: self class do: [ :mapping | 
+			         (mapping mapInstVar: #from) valueSchema: DateAndTime.
+						(mapping mapInstVar: #to) valueSchema: DateAndTime.
+			          mapping mapInstVars: #( id numGuests ) ].
+		          mapper for: DateAndTime customDo: [ :mapping | 
+			          mapping decoder: [ :string | 
+				          DateAndTime fromString: string ].
+			          mapping encoder: [ :dateAndTime | 
+				          dateAndTime printString ] ].
+		          mapper nextPut: object ] ].
+	^ writer value: self
 ]
 
 { #category : #accessing }

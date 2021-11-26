@@ -19,7 +19,16 @@ SiotServer >> initialize [
 					GET: '/stayID/<stay>' -> [ :req | | stayID stay |
 						stayID := req at: #stay.
 						stay := SiotController getStayById: stayID.
-						'StayID ' , stay id ];
+						'StayID ' , stay id asString ];
+					GET: '/guestID/<guest>' -> [ :req | | guestID guest |
+						guestID := req at: #stay.
+						guest := SiotController getGuestById: guestID.
+						'GuestID ' , guest id asString ];
+					GET: '/exampleMeasurement' -> [ :req | | measurement |
+						measurement := SiotMeasurement example1.
+						measurement serializeToJson ];
+					
+					
 		          yourself
 ]
 

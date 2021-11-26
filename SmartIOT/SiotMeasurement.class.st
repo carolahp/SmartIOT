@@ -10,6 +10,26 @@ Class {
 	#category : #'SmartIOT-Entities'
 }
 
+{ #category : #examples }
+SiotMeasurement class >> example1 [
+	| ts |
+	ts := DateAndTime
+		      year: 2012
+		      month: 2
+		      day: 14
+		      hour: 16
+		      minute: 40
+		      second: 18
+		      offset: 1 hour.
+
+	^ self new
+		  timestamp: ts;
+		  current: 200.003212;
+		  power: 888.000988;
+		  voltage: 999.004343;
+		  yourself
+]
+
 { #category : #accessing }
 SiotMeasurement >> current [
 
