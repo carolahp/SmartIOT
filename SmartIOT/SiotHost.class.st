@@ -1,6 +1,9 @@
 Class {
 	#name : #SiotHost,
 	#superclass : #SiotPerson,
+	#instVars : [
+		'stays'
+	],
 	#category : #'SmartIOT-Entities'
 }
 
