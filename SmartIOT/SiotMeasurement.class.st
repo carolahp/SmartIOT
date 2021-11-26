@@ -30,15 +30,6 @@ SiotMeasurement class >> example1 [
 		  yourself
 ]
 
-{ #category : #formatting }
-SiotMeasurement >> convertTimestamp [
-
-	" if timestamp is Integer, we must convert it to DateAndTime "
-
-	timestamp isInteger ifTrue: [ 
-		timestamp := DateAndTime fromSeconds: timestamp + 2177452800 ]
-]
-
 { #category : #accessing }
 SiotMeasurement >> current [
 
