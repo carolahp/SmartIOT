@@ -20,7 +20,7 @@ SiotStay class >> example1 [
 		from: (DateAndTime
 		      year: 2021
 		      month: 11
-		      day: 10
+		      day: 11
 		      hour: 00
 		      minute: 00
 		      second: 00
@@ -28,7 +28,7 @@ SiotStay class >> example1 [
 		to: (DateAndTime
 		      year: 2021
 		      month: 11
-		      day: 15
+		      day: 16
 		      hour: 23
 		      minute: 59
 		      second: 59

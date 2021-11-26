@@ -49,10 +49,27 @@ SiotMeasurementCollection >> getPowerFrom: t1 to: t2 [
 
 { #category : #accessing }
 SiotMeasurementCollection >> getPowerFrom: t1 to: t2 period: p [
-	| filtered |
+	| filtered result accumulatedPower pAsSecs |
+	" ensure that the new period is divisible by the new period "
+	
+	self assert: p asSeconds % period asSeconds = 0.
+	self assert: p > period.
+	result := OrderedCollection new.
 	filtered := self getPowerFrom: t1 to: t2.
-	
-	
+	pAsSecs := p asSeconds.
+	accumulatedPower := 0.
+	filtered do: [ :m |
+		m timestamp asSeconds % pAsSecs = 0 
+			ifTrue: [ | newM |
+				newM := SiotMeasurement new 
+					power: accumulatedPower;
+					timestamp: m timestamp;
+					yourself.
+				result add: newM.
+				accumulatedPower := 0 ].
+		accumulatedPower := accumulatedPower + (m power / period asSeconds).
+	].
+	^ result
 ]
 
 { #category : #accessing }
