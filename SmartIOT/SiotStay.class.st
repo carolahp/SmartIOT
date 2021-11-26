@@ -117,10 +117,17 @@ SiotStay >> serializeToJson [
 		          | mapper |
 		          mapper := NeoJSONWriter on: stream.
 		          mapper for: self class do: [ :mapping | 
-			         (mapping mapInstVar: #from) valueSchema: DateAndTime.
+			         (mapping mapInstVar: #guest) valueSchema: SiotGuest.
+						(mapping mapInstVar: #from) valueSchema: DateAndTime.
 						(mapping mapInstVar: #to) valueSchema: DateAndTime.
 			          mapping mapInstVars: #( id numGuests ) ].
-		          mapper for: DateAndTime customDo: [ :mapping | 
+		          mapper for: SiotGuest customDo: [ :mapping | 
+			          mapping decoder: [ :string | 
+							self error: 'Caro, you should implement SiotGuest fromString:'.
+				          "SiotGuest fromString: string" ].
+			          mapping encoder: [ :siotGuest | 
+				          siotGuest name ] ].
+					mapper for: DateAndTime customDo: [ :mapping | 
 			          mapping decoder: [ :string | 
 				          DateAndTime fromString: string ].
 			          mapping encoder: [ :dateAndTime | 
