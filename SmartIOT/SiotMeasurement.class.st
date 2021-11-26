@@ -7,7 +7,7 @@ Class {
 		'power',
 		'voltage'
 	],
-	#category : #SmartIOT
+	#category : #'SmartIOT-Entities'
 }
 
 { #category : #accessing }
@@ -36,13 +36,12 @@ SiotMeasurement >> power: anObject [
 
 { #category : #serialization }
 SiotMeasurement >> serializeToJson [
-
 	| writer |
 	writer := [ :object | 
 	          String streamContents: [ :stream | 
 		          | mapper |
 		          mapper := NeoJSONWriter on: stream.
-		          mapper for: SiotMeasurement do: [ :mapping | 
+		          mapper for: self class do: [ :mapping | 
 			          (mapping mapInstVar: #timestamp) valueSchema: DateAndTime.
 			          mapping mapInstVars: #( current power voltage ) ].
 		          mapper for: DateAndTime customDo: [ :mapping | 
