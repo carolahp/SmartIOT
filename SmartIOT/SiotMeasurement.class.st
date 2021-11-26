@@ -7,7 +7,7 @@ Class {
 		'power',
 		'voltage'
 	],
-	#category : #'SmartIOT-Entities'
+	#category : #'SmartIOT-Measurements'
 }
 
 { #category : #examples }
@@ -28,6 +28,15 @@ SiotMeasurement class >> example1 [
 		  power: 888.000988;
 		  voltage: 999.004343;
 		  yourself
+]
+
+{ #category : #formatting }
+SiotMeasurement >> convertTimestamp [
+
+	" if timestamp is Integer, we must convert it to DateAndTime "
+
+	timestamp isInteger ifTrue: [ 
+		timestamp := DateAndTime fromSeconds: timestamp + 2177452800 ]
 ]
 
 { #category : #accessing }
