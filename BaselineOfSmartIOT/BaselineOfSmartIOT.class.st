@@ -24,5 +24,6 @@ BaselineOfSmartIOT >> setUpDependencies: spec [
 				loads: #('Deployment') ];
 		import: 'Teapot'.
 	spec baseline: 'NeoJSON' with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
+	spec baseline: 'NeoCSV' with: [ spec repository: 'github://svenvc/NeoCSV/repository' ].
 
 ]

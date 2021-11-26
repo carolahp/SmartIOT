@@ -32,7 +32,7 @@ SiotMeasurementCollection class >> example1 [
 SiotMeasurementCollection class >> input [
 
 	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
-	   / 'Main-Grid-Smart-Meter-cut.csv') contents
+	   / 'Main-Grid-Smart-Meter.csv') contents
 ]
 
 { #category : #accessing }
@@ -42,14 +42,16 @@ SiotMeasurementCollection class >> reader [
 ]
 
 { #category : #formatting }
-SiotMeasurementCollection >> getPowerFrom: t1 to: t2 [ 
-	| resultMeasurements |
-	resultMeasurements := OrderedCollection new.
-	^ self measurements select: [ :m |  (m timestamp between: t1 and: t2) ifTrue: [resultMeasurements add: (m power)]].
+SiotMeasurementCollection >> getPowerFrom: t1 to: t2 [
+
+	^ self measurements select: [ :m | m timestamp between: t1 and: t2 ]
 ]
 
 { #category : #accessing }
-SiotMeasurementCollection >> getPowerFrom: t1 to: t2 period: period [
+SiotMeasurementCollection >> getPowerFrom: t1 to: t2 period: p [
+	| filtered |
+	filtered := self getPowerFrom: t1 to: t2.
+	
 	
 ]
 
