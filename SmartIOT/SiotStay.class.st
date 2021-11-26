@@ -20,18 +20,18 @@ SiotStay class >> example1 [
 		from: (DateAndTime
 		      year: 2021
 		      month: 11
-		      day: 14
-		      hour: 10
-		      minute: 40
+		      day: 10
+		      hour: 00
+		      minute: 00
 		      second: 00
 		      offset: 1 hour);
 		to: (DateAndTime
 		      year: 2021
 		      month: 11
-		      day: 18
-		      hour: 18
-		      minute: 00
-		      second: 00
+		      day: 15
+		      hour: 23
+		      minute: 59
+		      second: 59
 		      offset: 1 hour);
 		yourself
 ]
@@ -45,18 +45,18 @@ SiotStay class >> example2 [
 		from: (DateAndTime
 		      year: 2021
 		      month: 11
-		      day: 19
-		      hour: 10
-		      minute: 40
+		      day: 16
+		      hour: 00
+		      minute: 00
 		      second: 00
 		      offset: 1 hour);
 		to: (DateAndTime
 		      year: 2021
 		      month: 11
-		      day: 25
-		      hour: 18
-		      minute: 00
-		      second: 00
+		      day: 21
+		      hour: 23
+		      minute: 59
+		      second: 59
 		      offset: 1 hour);
 		yourself
 ]
