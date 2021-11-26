@@ -14,3 +14,8 @@ SiotHost class >> example1 [
 		name: 'Allex Oliveira';
 		yourself
 ]
+
+{ #category : #initialization }
+SiotHost >> initialize [ 
+	stays := OrderedCollection new
+]

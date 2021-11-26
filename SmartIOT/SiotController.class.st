@@ -5,13 +5,20 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SiotController >> getGuestById: id [
+SiotController class >> getGuestById: id [
 	id = 1 ifTrue: [ ^ SiotGuest example1 ].
 	id = 2 ifTrue: [ ^ SiotGuest example2 ].
 	self error: 'Guest id should be 1 or 2'
 ]
 
 { #category : #'as yet unclassified' }
-SiotController >> getHost [
+SiotController class >> getHost [
 	^ SiotHost example1
+]
+
+{ #category : #'as yet unclassified' }
+SiotController class >> getStayById: id [
+	id = 1 ifTrue: [ ^ SiotStay example1 ].
+	id = 2 ifTrue: [ ^ SiotStay example2 ].
+	self error: 'Stay id should be 1 or 2'
 ]

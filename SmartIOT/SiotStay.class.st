@@ -32,6 +32,29 @@ SiotStay class >> example1 [
 		yourself
 ]
 
+{ #category : #examples }
+SiotStay class >> example2 [
+	^ self new
+		guestID: 2;
+		from: (DateAndTime
+		      year: 2021
+		      month: 11
+		      day: 19
+		      hour: 10
+		      minute: 40
+		      second: 00
+		      offset: 1 hour);
+		to: (DateAndTime
+		      year: 2021
+		      month: 11
+		      day: 25
+		      hour: 18
+		      minute: 00
+		      second: 00
+		      offset: 1 hour);
+		yourself
+]
+
 { #category : #accessing }
 SiotStay >> from [
 
