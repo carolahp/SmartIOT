@@ -1,7 +1,7 @@
 Class {
 	#name : #SiotMeasurementTest,
 	#superclass : #TestCase,
-	#category : #'SmartIOT-Server'
+	#category : #'SmartIOT-Tests'
 }
 
 { #category : #tests }
