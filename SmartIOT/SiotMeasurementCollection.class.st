@@ -2,7 +2,8 @@ Class {
 	#name : #SiotMeasurementCollection,
 	#superclass : #Object,
 	#instVars : [
-		'measurements'
+		'measurements',
+		'period'
 	],
 	#category : #'SmartIOT-Measurements'
 }
@@ -23,6 +24,7 @@ SiotMeasurementCollection class >> example1 [
 	rows do: [ :row | row convertTimestamp ].
 	^ self new
 		measurements: rows;
+		period: 1 second;
 		yourself 
 ]
 
@@ -39,6 +41,18 @@ SiotMeasurementCollection class >> reader [
 
 ]
 
+{ #category : #formatting }
+SiotMeasurementCollection >> getPowerFrom: t1 to: t2 [ 
+	| resultMeasurements |
+	resultMeasurements := OrderedCollection new.
+	^ self measurements select: [ :m |  (m timestamp between: t1 and: t2) ifTrue: [resultMeasurements add: (m power)]].
+]
+
+{ #category : #accessing }
+SiotMeasurementCollection >> getPowerFrom: t1 to: t2 period: period [
+	
+]
+
 { #category : #accessing }
 SiotMeasurementCollection >> measurements [
 
@@ -49,4 +63,16 @@ SiotMeasurementCollection >> measurements [
 SiotMeasurementCollection >> measurements: anObject [
 
 	measurements := anObject
+]
+
+{ #category : #accessing }
+SiotMeasurementCollection >> period [
+
+	^ period
+]
+
+{ #category : #accessing }
+SiotMeasurementCollection >> period: anObject [
+
+	period := anObject
 ]
