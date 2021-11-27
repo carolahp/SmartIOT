@@ -1,32 +1,32 @@
 Class {
-	#name : #SiotMeasurementCollectionPerDeviceReal,
+	#name : #SiotMeasurementCollectionPerDeviceNoAI,
 	#superclass : #SiotMeasurementCollectionPerDevice,
 	#category : #'SmartIOT-Measurements'
 }
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDeviceReal class >> input1 [
+SiotMeasurementCollectionPerDeviceNoAI class >> input1 [
 
 	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
 	   / 'Energy-Cooker.csv') contents
 ]
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDeviceReal class >> input2 [
+SiotMeasurementCollectionPerDeviceNoAI class >> input2 [
 
 	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
 	   / 'Energy-TV-Living-Room.csv') contents
 ]
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDeviceReal class >> input3 [
+SiotMeasurementCollectionPerDeviceNoAI class >> input3 [
 
 	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
 	   / 'Energy-Rack-Kitchen.csv') contents
 ]
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDeviceReal class >> inputs [
+SiotMeasurementCollectionPerDeviceNoAI class >> inputs [
 
 	^ { self input1 . self input2 . self input3 }
 ]
