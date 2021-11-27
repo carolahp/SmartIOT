@@ -27,9 +27,19 @@ SiotController class >> getHost [
 ]
 
 { #category : #'as yet unclassified' }
-SiotController class >> getMeasurementsForStay: stayID device: deviceID aiDissaggregation: bool [
-	| stay device |
-	
+SiotController class >> getMeasurementsForStay: stayID device: deviceID aiDissaggregation: useAI period: seconds [
+
+	| stay measurementsClass |
+	useAI = '1' ifTrue: [ self halt ].
+	useAI = '0' ifTrue: [ measurementsClass := SiotMeasurementCollectionPerDeviceNoAI ].
+	(useAI = '0' or: useAI = '1' ) ifFalse: [ self error: 'useAI must be 0 or 1' ].
+		                     
+	stay := self getStayById: stayID asInteger.
+	^ measurementsClass
+		                   exampleDevice: deviceID asInteger
+		                   period: seconds
+		                   from: stay from
+		                   to: stay to
 ]
 
 { #category : #'as yet unclassified' }

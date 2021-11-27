@@ -34,13 +34,19 @@ SiotServer >> initialize [
 				          | measurements stayID stay |
 				          stayID := req at: #stay.
 				          stay := SiotController getStayById: stayID.
-				          measurements := SiotMeasurementCollection examplePeriod1DayFrom: stay from to: stay to.
+				          measurements := SiotMeasurementCollection
+					                          examplePeriod1DayFrom: stay from
+					                          to: stay to.
 				          measurements serializeToJson ];
-					GET: '/dissagregatedRealPerDay/stayID/<stay>/deviceID/<device>/useAI/<ai>' -> [ :req | 
-				          | measurements stay device |
-				          stay := SiotController getStayById: (req at: #stay).
-				          device := SiotController getDeviceById: (req at: #device).
-				          measurements := SiotController examplePeriod1DayFrom: stay from to: stay to.
+		          GET:
+			          '/dissagregatedRealPerDay/stayID/<stay>/deviceID/<device>/useAI/<ai>'
+			          -> [ :req | 
+				          | measurements |
+				          measurements := SiotController
+					                          getMeasurementsForStay: (req at: #stay)
+					                          device: (req at: #device)
+					                          aiDissaggregation: (req at: #ai)
+					                          period: 3600 * 24.
 				          measurements serializeToJson ];
 		          yourself
 ]

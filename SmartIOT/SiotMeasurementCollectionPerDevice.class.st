@@ -16,6 +16,18 @@ SiotMeasurementCollectionPerDevice class >> energyDatasets [
 ]
 
 { #category : #'as yet unclassified' }
+SiotMeasurementCollectionPerDevice class >> exampleDevice: deviceID period: seconds from: t1 to: t2 [
+
+	| base |
+	base := self examplePeriod1Second: deviceID.
+	^ self new
+		  device: (SiotController getDeviceById: deviceID) name;
+		  measurements: (base from: t1 to: t2 period: seconds seconds);
+		  period: seconds seconds;
+		  yourself
+]
+
+{ #category : #'as yet unclassified' }
 SiotMeasurementCollectionPerDevice class >> examplePeriod1Day: deviceID from: t1 to: t2 [
 
 	| base |
