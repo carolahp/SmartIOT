@@ -147,7 +147,9 @@ SiotMeasurementCollection >> serializeToJson [
 	          String streamContents: [ :stream | 
 		          | mapper |
 		          mapper := NeoJSONWriter on: stream.
-					
+					 mapper
+			          for: self class
+			          do: [:mapping | (mapping mapInstVar: #measurements) valueSchema: #ArrayOfMeasurements. ].
 		          mapper
 			          for: #ArrayOfMeasurements
 			          customDo: [ :mapping | 
@@ -157,7 +159,7 @@ SiotMeasurementCollection >> serializeToJson [
 						          DateAndTime.
 				          mapping mapInstVars: #( current power voltage ) ].
 		          mapper for: DateAndTime customDo: [ :mapping | 
-			   		(mapping mapInstVar: #measurements) valueSchema: #ArrayOfMeasurements.       
+			   		    
 						mapping decoder: [ :string | 
 				          DateAndTime fromString: string ].
 			          mapping encoder: [ :dateAndTime | 
