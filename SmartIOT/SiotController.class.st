@@ -11,7 +11,10 @@ SiotController class >> getDeviceById: id [
 	id asString = '2' ifTrue: [ ^ SiotDevice example2 ].
 	id asString = '3' ifTrue: [ ^ SiotDevice example3 ].
 	
-	self error: 'Got Stay id ', id asString, ', it should be 1 or 2 or 3'
+	^ SiotMeasurementCollectionPerDeviceAI devices at: id asInteger - 3.
+	"
+	
+	self error: 'Got Stay id ', id asString, ', it should be 1 or 2 or 3'"
 ]
 
 { #category : #'as yet unclassified' }

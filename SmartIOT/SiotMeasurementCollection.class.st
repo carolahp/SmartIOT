@@ -115,6 +115,7 @@ SiotMeasurementCollection >> from: t1 to: t2 period: p [
 	filtered := self from: t1 to: t2.
 	pAsSecs := p asSeconds.
 	accumulatedPower := 0.
+	
 	filtered do: [ :m |
 		m timestamp asSeconds % pAsSecs = 0 
 			ifTrue: [ | newM |

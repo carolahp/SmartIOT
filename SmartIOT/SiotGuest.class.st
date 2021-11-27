@@ -19,3 +19,11 @@ SiotGuest class >> example2 [
 		name: 'Carolina Hernandez';
 		yourself
 ]
+
+{ #category : #examples }
+SiotGuest class >> example3 [
+	^ self new
+		id: 3;
+		name: 'Oleks Zaitsev';
+		yourself
+]
