@@ -31,3 +31,27 @@ SiotDevice class >> example3 [
 		name: 'Kitchen rack';
 		yourself
 ]
+
+{ #category : #accessing }
+SiotDevice >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+SiotDevice >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #accessing }
+SiotDevice >> name [
+
+	^ name
+]
+
+{ #category : #accessing }
+SiotDevice >> name: anObject [
+
+	name := anObject
+]

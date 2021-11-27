@@ -11,6 +11,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+SiotMeasurementCollectionPerDevice class >> energyDatasets [
+	^ EnergyDatasets 
+]
+
+{ #category : #'as yet unclassified' }
 SiotMeasurementCollectionPerDevice class >> examplePeriod1Day: deviceID from: t1 to: t2 [
 
 	| base |
@@ -38,7 +43,7 @@ SiotMeasurementCollectionPerDevice class >> examplePeriod1Hour: deviceID from: t
 SiotMeasurementCollectionPerDevice class >> examplePeriod1Second: deviceID [
 
 	| reader headers rows |
-	EnergyDatasets ifNil: [ EnergyDatasets := Array new: 3 ].
+	EnergyDatasets ifNil: [ EnergyDatasets := Array new: self inputs size ].
 	(EnergyDatasets at: deviceID) ifNotNil: [ 
 		^ EnergyDatasets at: deviceID ].
 
@@ -66,6 +71,11 @@ SiotMeasurementCollectionPerDevice class >> examplePeriod1Second: deviceID [
 SiotMeasurementCollectionPerDevice class >> inputs [
 
 	self subclassResponsibility 
+]
+
+{ #category : #'as yet unclassified' }
+SiotMeasurementCollectionPerDevice class >> resetEnergyDatasets [
+	EnergyDatasets := nil 
 ]
 
 { #category : #accessing }
