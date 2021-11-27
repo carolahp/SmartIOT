@@ -26,6 +26,20 @@ SiotMeasurementCollection class >> examplePeriod1Day [
 ]
 
 { #category : #accessing }
+SiotMeasurementCollection class >> examplePeriod1DayFrom: t1 to: t2 [
+
+	| base |
+	base := self examplePeriod1Second.
+	^ self new
+		  measurements: (base
+				   from: t1
+				   to: t2
+				   period: (24*3600) seconds);
+		  period: (24*3600) seconds;
+		  yourself
+]
+
+{ #category : #accessing }
 SiotMeasurementCollection class >> examplePeriod1Hour [
 
 	| base |

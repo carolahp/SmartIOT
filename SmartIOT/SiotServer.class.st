@@ -30,10 +30,12 @@ SiotServer >> initialize [
 				          guestID := req at: #guest.
 				          guest := SiotController getGuestById: guestID.
 				          'GuestID ' , guest id asString ];
-		          GET: '/exampleMeasurement' -> [ :req | 
-				          | measurement |
-				          measurement := SiotMeasurement example1.
-				          measurement serializeToJson ];
+		          GET: '/aggregatedRealPerDay/<stay>' -> [ :req | 
+				          | measurements stayID stay |
+				          stayID := req at: #stay.
+				          stay := SiotController getStayById: stayID.
+				          measurements := SiotMeasurementCollection examplePeriod1DayFrom: stay from to: stay to.
+				          measurements serializeToJson ];
 		          yourself
 ]
 
