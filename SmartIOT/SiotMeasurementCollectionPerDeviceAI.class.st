@@ -28,7 +28,7 @@ SiotMeasurementCollectionPerDeviceAI class >> inputs [
 { #category : #'as yet unclassified' }
 SiotMeasurementCollectionPerDeviceAI class >> loadData [
 
-	| reader headers rows dataset measurementCollections |
+	| reader headers rows measurementCollections |
 	FullEnergyDataset ifNotNil: [ ^ self ].
 
 	reader := NeoCSVReader on: self input readStream.
@@ -62,7 +62,15 @@ SiotMeasurementCollectionPerDeviceAI class >> loadData [
 				               power: (row powerForDevice: dev);
 				               yourself.
 			(measurementCollections at: dev name) measurements add: measurement ] ].
-	^ FullEnergyDataset := measurementCollections
+	EnergyDatasets := Array new: self devices size.
+	measurementCollections doWithIndex: [ :each : index |
+		EnergyDatasets at: index put: (self new
+			 device: each device;
+			 measurements: each measurements;
+			 period: 60 second;
+			 yourself)
+		 ].
+	^ EnergyDatasets
 ]
 
 { #category : #'as yet unclassified' }

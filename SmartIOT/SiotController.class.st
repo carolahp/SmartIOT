@@ -30,7 +30,7 @@ SiotController class >> getHost [
 SiotController class >> getMeasurementsForStay: stayID device: deviceID aiDissaggregation: useAI period: seconds [
 
 	| stay measurementsClass |
-	useAI = '1' ifTrue: [ self halt ].
+	useAI = '1' ifTrue: [ measurementsClass := SiotMeasurementCollectionPerDeviceAI ].
 	useAI = '0' ifTrue: [ measurementsClass := SiotMeasurementCollectionPerDeviceNoAI ].
 	(useAI = '0' or: useAI = '1' ) ifFalse: [ self error: 'useAI must be 0 or 1' ].
 		                     
