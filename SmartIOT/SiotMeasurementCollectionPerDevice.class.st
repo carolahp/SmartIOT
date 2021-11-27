@@ -11,17 +11,37 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDevice class >> example1Period1Second [
-	
+SiotMeasurementCollectionPerDevice class >> examplePeriod1Day: deviceID from: t1 to: t2 [
+
+	| base |
+	base := self examplePeriod1Second: deviceID.
+	^ self new
+		  device: (SiotController getDeviceById: deviceID) name;
+		  measurements: (base from: t1 to: t2 period: (24 * 3600) seconds);
+		  period: (24 * 3600) seconds;
+		  yourself
+]
+
+{ #category : #'as yet unclassified' }
+SiotMeasurementCollectionPerDevice class >> examplePeriod1Hour: deviceID from: t1 to: t2 [
+
+	| base |
+	base := self examplePeriod1Second: deviceID.
+	^ self new
+		  device: (SiotController getDeviceById: deviceID) name;
+		  measurements: (base from: t1 to: t2 period: 3600 seconds);
+		  period: 3600 seconds;
+		  yourself
 ]
 
 { #category : #'as yet unclassified' }
 SiotMeasurementCollectionPerDevice class >> examplePeriod1Second: deviceID [
+
 	| reader headers rows |
-	
 	EnergyDatasets ifNil: [ EnergyDatasets := Array new: 3 ].
-	(EnergyDatasets at: deviceID) ifNotNil: [ ^ EnergyDatasets at: deviceID ].
-	
+	(EnergyDatasets at: deviceID) ifNotNil: [ 
+		^ EnergyDatasets at: deviceID ].
+
 	reader := NeoCSVReader on: (self inputs at: deviceID) readStream.
 	headers := reader readHeader.
 	rows := reader
@@ -35,37 +55,29 @@ SiotMeasurementCollectionPerDevice class >> examplePeriod1Second: deviceID [
 	rows do: [ :row | 
 		row timestamp: (self timestampFromSeconds: row timestamp) ].
 	EnergyDatasets at: deviceID put: (self new
-		  measurements: rows;
-		  period: 1 second;
-		  yourself).
+			 device: (SiotController getDeviceById: deviceID) name;
+			 measurements: rows;
+			 period: 1 second;
+			 yourself).
 	^ EnergyDatasets at: deviceID
-]
-
-{ #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDevice class >> input1 [
-
-	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
-	   / 'Energy-Cooker.csv') contents
-]
-
-{ #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDevice class >> input2 [
-
-	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
-	   / 'Energy-TV-Living-Room.csv') contents
-]
-
-{ #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDevice class >> input3 [
-
-	^ (FileSystem workingDirectory / 'Dataset-Allex-House'
-	   / 'Energy-Rack-Kitchen.csv') contents
 ]
 
 { #category : #'as yet unclassified' }
 SiotMeasurementCollectionPerDevice class >> inputs [
 
-	^ { self input1 . self input2 . self input3 }
+	self subclassResponsibility 
+]
+
+{ #category : #accessing }
+SiotMeasurementCollectionPerDevice >> device [
+
+	^ device
+]
+
+{ #category : #accessing }
+SiotMeasurementCollectionPerDevice >> device: anObject [
+
+	device := anObject
 ]
 
 { #category : #serialization }
