@@ -10,7 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 SiotMeasurementCollectionPerDeviceAI class >> devices [
 	
-	^ { 'fridge' . 'light' . 'sockets' . 'microwave' . 'dish washer' } collectWithIndex: [ :n :i | SiotDevice new id: i + 3; name: n; yourself  ]
+	^ { 'fridge' . 'light' . 'sockets' . 'microwave' . 'dishwasher' } collectWithIndex: [ :n :i | SiotDevice new id: i + 3; name: n; yourself  ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -26,11 +26,11 @@ SiotMeasurementCollectionPerDeviceAI class >> inputs [
 ]
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDeviceAI class >> loadData [ 
-	| reader headers rows dataset |
+SiotMeasurementCollectionPerDeviceAI class >> loadData [
+
+	| reader headers rows dataset measurementCollections |
 	FullEnergyDataset ifNotNil: [ ^ self ].
-	FullEnergyDataset := Array new: self devices size.
-	
+
 	reader := NeoCSVReader on: self input readStream.
 	headers := reader readHeader.
 	rows := reader
@@ -39,22 +39,30 @@ SiotMeasurementCollectionPerDeviceAI class >> loadData [
 		        addIntegerField: #fridge:;
 		        addIntegerField: #light:;
 		        addIntegerField: #sockets:;
-				  addIntegerField: #microwave:;
-				  addIntegerField: #dishwasher:;
-				  addIntegerField: #timestamp:;
-				  upToEnd.
+		        addIntegerField: #microwave:;
+		        addIntegerField: #dishwasher:;
+		        addIntegerField: #timestamp:;
+		        upToEnd.
 	rows do: [ :row | 
 		row timestamp: (self timestampFromSeconds: row timestamp) ].
-	self halt.
-	self devices do: [:dev |
-		
-		dataset := (self new
-			 device: dev name;
-			 measurements: rows;
-			 period: 1 second;
-			 yourself).	
-		  ].
-	^ dataset
+	
+	measurementCollections := (self devices collect: [ :dev | 
+		         							dev name ->                 
+											(self new
+			                          device: dev name;
+			                          period: 60 second;
+			                          measurements: OrderedCollection new;
+			                          yourself) ]) asDictionary.
+
+	rows do: [ :row | 
+		self devices do: [ :dev | 
+			| measurement |
+			measurement := SiotMeasurement new
+				               timestamp: row timestamp;
+				               power: (row powerForDevice: dev);
+				               yourself.
+			(measurementCollections at: dev name) measurements add: measurement ] ].
+	^ FullEnergyDataset := measurementCollections
 ]
 
 { #category : #'as yet unclassified' }

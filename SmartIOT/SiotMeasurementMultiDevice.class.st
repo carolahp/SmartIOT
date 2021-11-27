@@ -61,6 +61,11 @@ SiotMeasurementMultiDevice >> microwave: anObject [
 ]
 
 { #category : #accessing }
+SiotMeasurementMultiDevice >> powerForDevice: aSiotDevice [ 
+	^ self instVarAt: (self class allInstVarNames indexOf: aSiotDevice name)
+]
+
+{ #category : #accessing }
 SiotMeasurementMultiDevice >> sockets [
 
 	^ sockets
