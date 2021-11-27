@@ -14,7 +14,8 @@ SiotMeasurementCollectionPerDeviceAI class >> devices [
 ]
 
 { #category : #'as yet unclassified' }
-SiotMeasurementCollectionPerDeviceAI class >> input [ 
+SiotMeasurementCollectionPerDeviceAI class >> input [
+	"(ZnEasy get: 'http://localhost:1701/dissagregatedRealPerHour/stayID/3/deviceID/1/useAI/1') entity string." 
 	^ (FileSystem workingDirectory / 'Dataset-Prediction'
 	   / 'prediction.csv') contents
 ]

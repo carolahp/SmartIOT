@@ -50,5 +50,6 @@ SiotController class >> getStayById: id [
 	
 	id asString = '1' ifTrue: [ ^ SiotStay example1 ].
 	id asString = '2' ifTrue: [ ^ SiotStay example2 ].
-	self error: 'Got Stay id ', id asString, ', it should be 1 or 2'
+	id asString = '3' ifTrue: [ ^ SiotStay example3 ].
+	self error: 'Got Stay id ', id asString, ', it should be 1 or 2 or 3'
 ]
