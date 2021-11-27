@@ -48,6 +48,16 @@ SiotServer >> initialize [
 					                          aiDissaggregation: (req at: #ai)
 					                          period: 3600 * 24.
 				          measurements serializeToJson ];
+			GET:
+			          '/dissagregatedRealPerHour/stayID/<stay>/deviceID/<device>/useAI/<ai>'
+			          -> [ :req | 
+				          | measurements |
+				          measurements := SiotController
+					                          getMeasurementsForStay: (req at: #stay)
+					                          device: (req at: #device)
+					                          aiDissaggregation: (req at: #ai)
+					                          period: 3600.
+				          measurements serializeToJson ];
 		          yourself
 ]
 
