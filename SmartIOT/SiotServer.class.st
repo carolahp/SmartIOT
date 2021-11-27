@@ -36,6 +36,12 @@ SiotServer >> initialize [
 				          stay := SiotController getStayById: stayID.
 				          measurements := SiotMeasurementCollection examplePeriod1DayFrom: stay from to: stay to.
 				          measurements serializeToJson ];
+					GET: '/dissagregatedRealPerDay/stayID/<stay>/deviceID/<device>/useAI/<ai>' -> [ :req | 
+				          | measurements stay device |
+				          stay := SiotController getStayById: (req at: #stay).
+				          device := SiotController getDeviceById: (req at: #device).
+				          measurements := SiotController examplePeriod1DayFrom: stay from to: stay to.
+				          measurements serializeToJson ];
 		          yourself
 ]
 
